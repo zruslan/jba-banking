@@ -38,18 +38,32 @@ class BankMachine:
         print("\nBalance: {}".format(account['balance']))
 
     def check_sum_card_num(self, card_num_15):
-        return 1
+        control_number = 0
+        debug = ""
+        for i, char in enumerate(card_num_15, 1):
+            x = int(char)
+            if i % 2:
+                x *= 2
+            if x > 9:
+                x -= 9
+            control_number += x
+            debug = debug + str(x) + "+"
+        rem = control_number % 10
+        if rem != 0:
+            return str(10 - rem)
+        else:
+            return '0'
 
     def create_account(self):
         random.seed()
         while True:
             new_card_num = "400000"
-            new_card_num += str(random.randint(100000000, 999999999))
+            new_card_num += str(random.randint(0, 999999999)).rjust(9, '0')
             new_card_num += str(self.check_sum_card_num(new_card_num))
 
             if new_card_num not in self.accounts:
                 new_account = {'card_num': new_card_num,
-                               'pin_code': str(random.randint(1000, 9999)),
+                               'pin_code': str(random.randint(0, 9999)).rjust(4, '0'),
                                'balance': 0
                                }
                 self.accounts[new_card_num] = new_account
@@ -139,4 +153,6 @@ class BankMachine:
 
 
 bm = BankMachine()
+#  print(bm.check_sum_card_num("400000735080216"))
 bm.machine_run()
+
