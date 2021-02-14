@@ -4,3 +4,5 @@
 *.html
 tests.py
 /Problems/Counting unique/main.py
+/Simple Banking System/task/banking/card.s3db
+/Simple Banking System/task/card.s3db
